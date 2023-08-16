@@ -51,7 +51,7 @@ public class EventProducer {
     public void eatBerriesEvent(Toucan toucan) {
         int energy = toucan.getEnergy();
         int health = toucan.getHealth();
-        energy = energy - 7;
+        energy = (energy - 7) * (int) (toucan.getRateOfbeak());
         health = health + 10;
         energy = isEnergyOver100rLessZero(energy);
         health = isHealthOver100rLessZero(health);
