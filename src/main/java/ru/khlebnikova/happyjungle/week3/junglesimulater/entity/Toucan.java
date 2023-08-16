@@ -11,19 +11,19 @@ public class Toucan {
     private int energy = 100;
     private final double rateOfbeak = 2.5;
 
-    private void setHealth(int health) {
+    public void setHealth(int health) {
         this.health = health;
     }
 
-    private int getHealth() {
+    public int getHealth() {
         return this.health;
     }
 
-    private void setEnergy(int energy) {
+    public void setEnergy(int energy) {
         this.energy = energy;
     }
 
-    private int getEnergy() {
+    public int getEnergy() {
         return this.energy;
     }
 
