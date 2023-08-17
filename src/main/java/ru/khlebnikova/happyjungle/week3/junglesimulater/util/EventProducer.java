@@ -4,27 +4,28 @@ import ru.khlebnikova.happyjungle.week3.junglesimulater.entity.Toucan;
 
 public class EventProducer {
 
-    //40%//Тукан не поспал - -20 энергии
-    //20%//Тукан полетал - -7 энергии
-    //20%//Тукан съел ягод - -7энергии  +8 здоровья
-    //20%//Тукан съел банан - -10 энергии  +8 здоровья
-    //10%//На тукана напал птицелов - -20 здоровья
-    //10%//Если энергии==0, то -5 здоровья
-
     public void activateEvent(Toucan toucan) {
         while (checkStatus(toucan)) {
             int eventNumber = (int) (Math.random() * 100);
-            if (eventNumber >= 0 && eventNumber < 20) {
+            if (eventNumber >= 0 && eventNumber < 10) {
                 sleepEvent(toucan);
+            } else if (eventNumber >= 10 && eventNumber < 20) {
+                cleanEvent(toucan);
             } else if (eventNumber >= 30 && eventNumber < 40) {
                 screamEvent(toucan);
-            } else if (eventNumber >= 40 && eventNumber < 50) {
+            } else if (eventNumber >= 40 && eventNumber < 45) {
+                playEvent(toucan);
+            } else if (eventNumber >= 45 && eventNumber < 50) {
                 flyEvent(toucan);
             } else if (eventNumber >= 50 && eventNumber < 60) {
                 eatBerriesEvent(toucan);
-            } else if (eventNumber >= 60 && eventNumber < 80) {
+            } else if (eventNumber >= 60 && eventNumber < 70) {
                 eatBananaEvent(toucan);
-            } else if (eventNumber >= 80 && eventNumber < 100) {
+            } else if (eventNumber >= 70 && eventNumber < 80) {
+                hatchingEvent(toucan);
+            } else if (eventNumber >= 80 && eventNumber < 90) {
+                feedingEvent(toucan);
+            } else if (eventNumber >= 90 && eventNumber < 100) {
                 hitBirdcatcher(toucan);
             }
         }
@@ -51,6 +52,35 @@ public class EventProducer {
 
     }
 
+    private void playEvent(Toucan toucan) {
+        int energy = toucan.getEnergy();
+        int health = toucan.getHealth();
+        energy = energy - 18;
+        health = (health + 8) + (int) (toucan.getRateOfbeak());
+        energy = isEnergyOver100rLessZero(energy);
+        toucan.setEnergy(energy);
+        System.out.println("Toucan playing with a friend! Current energy: " + toucan.getEnergy() + " Current health " + toucan.getHealth());
+    }
+
+    private void hatchingEvent(Toucan toucan) {
+        int energy = toucan.getEnergy();
+        int health = toucan.getHealth();
+        energy = energy - 10;
+        health = health - 3;
+        energy = isEnergyOver100rLessZero(energy);
+        toucan.setEnergy(energy);
+        System.out.println("Toucan hatching eggs! Current energy: " + toucan.getEnergy() + " Current health " + toucan.getHealth());
+    }
+
+    private void feedingEvent(Toucan toucan) {
+        int energy = toucan.getEnergy();
+        int health = toucan.getHealth();
+        energy = energy - 10;
+        health = health - 2;
+        energy = isEnergyOver100rLessZero(energy);
+        toucan.setEnergy(energy);
+        System.out.println("Toucan feeding chicks! Current energy: " + toucan.getEnergy() + " Current health " + toucan.getHealth());
+    }
 
     public void flyEvent(Toucan toucan) {
         int energy = toucan.getEnergy();
@@ -58,6 +88,15 @@ public class EventProducer {
         energy = isEnergyOver100rLessZero(energy);
         toucan.setEnergy(energy);
         System.out.println("Toucan flew! Current energy: " + toucan.getEnergy());
+
+    }
+
+    public void cleanEvent(Toucan toucan) {
+        int health = toucan.getHealth();
+        health = health + 17;
+        health = isEnergyOver100rLessZero(health);
+        toucan.setEnergy(health);
+        System.out.println("Toucan cleans feathers! Current health: " + toucan.getHealth());
 
     }
 
@@ -96,7 +135,6 @@ public class EventProducer {
 
     }
 
-
     public int isEnergyOver100rLessZero(int energy) {
         if (energy > 100) {
             energy = 100;
@@ -133,5 +171,4 @@ public class EventProducer {
             toucan.setHealth(health);
         }
     }
-
 }
