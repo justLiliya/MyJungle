@@ -14,8 +14,10 @@ public class EventProducer {
     public void activateEvent(Toucan toucan) {
         while (checkStatus(toucan)) {
             int eventNumber = (int) (Math.random() * 100);
-            if (eventNumber >= 0 && eventNumber < 40) {
+            if (eventNumber >= 0 && eventNumber < 20) {
                 sleepEvent(toucan);
+            } else if (eventNumber >= 30 && eventNumber < 40) {
+                screamEvent(toucan);
             } else if (eventNumber >= 40 && eventNumber < 50) {
                 flyEvent(toucan);
             } else if (eventNumber >= 50 && eventNumber < 60) {
@@ -35,6 +37,17 @@ public class EventProducer {
         energy = isEnergyOver100rLessZero(energy);
         toucan.setEnergy(energy);
         System.out.println("Toucan sleeped! Current energy: " + toucan.getEnergy());
+
+    }
+
+    private void screamEvent(Toucan toucan) {
+        int energy = toucan.getEnergy();
+        int health = toucan.getHealth();
+        energy = energy - 5;
+        health = (health - 1) + (int) (toucan.getRateOfbeak());
+        energy = isEnergyOver100rLessZero(energy);
+        toucan.setEnergy(energy);
+        System.out.println("Toucan screamed piu-piu-piu! Current energy: " + toucan.getEnergy() + " Current health " + toucan.getHealth());
 
     }
 
