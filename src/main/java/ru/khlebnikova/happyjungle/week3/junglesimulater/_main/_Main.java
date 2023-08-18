@@ -8,6 +8,6 @@ public class _Main {
     public static void main(String[] args){
         Toucan toucan = new Toucan();
         EventProducer eventProducer = new EventProducer();
-        eventProducer.activateEvent(toucan);
+        eventProducer.startSimulation(toucan);
     }
 }

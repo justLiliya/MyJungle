@@ -4,7 +4,7 @@ public class Toucan {
 
     private int health = 100;
     private int energy = 100;
-    private final double rateOfbeak = 2.5;
+    private final double rateBeak = 2.5;
 
     public void setHealth(int health) {
         this.health = health;
@@ -22,7 +22,7 @@ public class Toucan {
         return this.energy;
     }
 
-    public double getRateOfbeak() {
-        return this.rateOfbeak;
+    public double getRateBeak() {
+        return this.rateBeak;
     }
 }

@@ -4,7 +4,7 @@ import ru.khlebnikova.happyjungle.week3.junglesimulater.entity.Toucan;
 
 public class EventProducer {
 
-    public void activateEvent(Toucan toucan) {
+    public void startSimulation(Toucan toucan) {
         while (checkStatus(toucan)) {
             int eventNumber = (int) (Math.random() * 100);
             if (eventNumber >= 0 && eventNumber < 10) {
@@ -35,7 +35,7 @@ public class EventProducer {
     private void sleepEvent(Toucan toucan) {
         int energy = toucan.getEnergy();
         energy = energy + 20;
-        energy = isEnergyOver100rLessZero(energy);
+        energy = isEnergyOverLessZero(energy);
         toucan.setEnergy(energy);
         System.out.println("Toucan sleeped! Current energy: " + toucan.getEnergy());
 
@@ -45,8 +45,8 @@ public class EventProducer {
         int energy = toucan.getEnergy();
         int health = toucan.getHealth();
         energy = energy - 5;
-        health = (health - 1) + (int) (toucan.getRateOfbeak());
-        energy = isEnergyOver100rLessZero(energy);
+        health = (health - 1) + (int) (toucan.getRateBeak());
+        energy = isEnergyOverLessZero(energy);
         toucan.setEnergy(energy);
         System.out.println("Toucan screamed piu-piu-piu! Current energy: " + toucan.getEnergy() + " Current health " + toucan.getHealth());
 
@@ -56,8 +56,8 @@ public class EventProducer {
         int energy = toucan.getEnergy();
         int health = toucan.getHealth();
         energy = energy - 18;
-        health = (health + 8) + (int) (toucan.getRateOfbeak());
-        energy = isEnergyOver100rLessZero(energy);
+        health = (health + 8) + (int) (toucan.getRateBeak());
+        energy = isEnergyOverLessZero(energy);
         toucan.setEnergy(energy);
         System.out.println("Toucan playing with a friend! Current energy: " + toucan.getEnergy() + " Current health " + toucan.getHealth());
     }
@@ -67,7 +67,7 @@ public class EventProducer {
         int health = toucan.getHealth();
         energy = energy - 10;
         health = health - 3;
-        energy = isEnergyOver100rLessZero(energy);
+        energy = isEnergyOverLessZero(energy);
         toucan.setEnergy(energy);
         System.out.println("Toucan hatching eggs! Current energy: " + toucan.getEnergy() + " Current health " + toucan.getHealth());
     }
@@ -77,7 +77,7 @@ public class EventProducer {
         int health = toucan.getHealth();
         energy = energy - 10;
         health = health - 2;
-        energy = isEnergyOver100rLessZero(energy);
+        energy = isEnergyOverLessZero(energy);
         toucan.setEnergy(energy);
         System.out.println("Toucan feeding chicks! Current energy: " + toucan.getEnergy() + " Current health " + toucan.getHealth());
     }
@@ -85,7 +85,7 @@ public class EventProducer {
     public void flyEvent(Toucan toucan) {
         int energy = toucan.getEnergy();
         energy = energy - 7;
-        energy = isEnergyOver100rLessZero(energy);
+        energy = isEnergyOverLessZero(energy);
         toucan.setEnergy(energy);
         System.out.println("Toucan flew! Current energy: " + toucan.getEnergy());
 
@@ -94,7 +94,7 @@ public class EventProducer {
     public void cleanEvent(Toucan toucan) {
         int health = toucan.getHealth();
         health = health + 17;
-        health = isEnergyOver100rLessZero(health);
+        health = isEnergyOverLessZero(health);
         toucan.setEnergy(health);
         System.out.println("Toucan cleans feathers! Current health: " + toucan.getHealth());
 
@@ -103,10 +103,10 @@ public class EventProducer {
     public void eatBerriesEvent(Toucan toucan) {
         int energy = toucan.getEnergy();
         int health = toucan.getHealth();
-        energy = (energy - 7) * (int) (toucan.getRateOfbeak());
+        energy = (energy - 7) * (int) (toucan.getRateBeak());
         health = health + 10;
-        energy = isEnergyOver100rLessZero(energy);
-        health = isHealthOver100rLessZero(health);
+        energy = isEnergyOverLessZero(energy);
+        health = isHealthOverLessZero(health);
         toucan.setEnergy(energy);
         toucan.setHealth(health);
         System.out.println("Toucan eat berrries! Current energy: " + toucan.getEnergy() + " Current health " + toucan.getHealth());
@@ -118,8 +118,8 @@ public class EventProducer {
         int health = toucan.getHealth();
         energy = energy - 10;
         health = health + 15;
-        energy = isEnergyOver100rLessZero(energy);
-        health = isHealthOver100rLessZero(health);
+        energy = isEnergyOverLessZero(energy);
+        health = isHealthOverLessZero(health);
         toucan.setEnergy(energy);
         toucan.setHealth(health);
         System.out.println("Toucan eat banana! Current energy: " + toucan.getEnergy() + " Current health " + toucan.getHealth());
@@ -129,13 +129,13 @@ public class EventProducer {
     public void hitBirdcatcher(Toucan toucan) {
         int health = toucan.getHealth();
         health = health - 15;
-        health = isHealthOver100rLessZero(health);
+        health = isHealthOverLessZero(health);
         toucan.setHealth(health);
         System.out.println("Birdcatcher caught a toucan! Current energy: " + toucan.getEnergy() + " Current health " + toucan.getHealth());
 
     }
 
-    public int isEnergyOver100rLessZero(int energy) {
+    public int isEnergyOverLessZero(int energy) {
         if (energy > 100) {
             energy = 100;
         } else if (energy < 0) {
@@ -144,7 +144,7 @@ public class EventProducer {
         return energy;
     }
 
-    public int isHealthOver100rLessZero(int health) {
+    public int isHealthOverLessZero(int health) {
         if (health > 100) {
             health = 100;
         } else if (health < 0) {
@@ -154,11 +154,11 @@ public class EventProducer {
     }
 
     private boolean checkStatus(Toucan toucan) {
+        boolean isNotZero = true;
         if (toucan.getHealth() <= 0) {
-            return false;
-        } else {
-            return true;
+            isNotZero = false;
         }
+        return isNotZero;
     }
 
     private void checkEnergy(Toucan toucan) {
